@@ -78,6 +78,9 @@ export function Header({ title, onMenuClick, user, showNav }: HeaderProps) {
               <Link href="/directory" className="text-sm font-medium text-gray-600 hover:text-gray-900">
                 Directory
               </Link>
+              <Link href="/chat" className="text-sm font-medium text-[#0A7E72] hover:text-[#096b61]">
+                AI Assistant
+              </Link>
               <Link href="/legal" className="text-sm font-medium text-gray-600 hover:text-gray-900">
                 Legal
               </Link>
