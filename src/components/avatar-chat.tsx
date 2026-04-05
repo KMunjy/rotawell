@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Mic, MicOff, Send, Loader2, MessageSquare, X, AlertCircle, Clock } from 'lucide-react';
+import { AVATAR_CONFIG } from '@/lib/avatar-config';
 
 type ChatState = 'idle' | 'connecting' | 'connected' | 'error';
 
@@ -19,8 +20,8 @@ interface AvatarInstance {
   closeVoiceChat: () => Promise<void>;
 }
 
-const SESSION_TIMEOUT_MS = 10 * 60 * 1000; // 10 minutes
-const WARNING_BEFORE_MS = 2 * 60 * 1000;   // warn at 8 minutes (2 min before timeout)
+const SESSION_TIMEOUT_MS = AVATAR_CONFIG.sessionTimeoutMs;
+const WARNING_BEFORE_MS = AVATAR_CONFIG.warningBeforeMs;
 
 export default function AvatarChat({ compact = false }: AvatarChatProps) {
   const [state, setState] = useState<ChatState>('idle');
@@ -37,7 +38,7 @@ export default function AvatarChat({ compact = false }: AvatarChatProps) {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const warningRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const avatarId = process.env.NEXT_PUBLIC_HEYGEN_AVATAR_ID || 'Anna_public_3_20240108';
+  const avatarId = AVATAR_CONFIG.avatarId;
 
   // Session timeout management
   const clearTimers = useCallback(() => {
