@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { ChatWidget } from '@/components/chat/chat-widget';
 import { AvatarChatWidget } from '@/components/avatar-chat-widget';
 import { TickerBar } from '@/components/layout/ticker-bar';
 import { Providers } from '@/components/providers';
@@ -38,7 +37,6 @@ export default function RootLayout({
           <Providers>
             <main>{children}</main>
             <TickerBar />
-            <ChatWidget />
             <AvatarChatWidget />
             <CookieConsent />
           </Providers>

@@ -54,7 +54,7 @@ export type ShiftStatus = 'draft' | 'open' | 'filled' | 'in_progress' | 'complet
 export type ApplicationStatus = 'pending' | 'shortlisted' | 'selected' | 'rejected' | 'withdrawn';
 
 // Support Ticket Category
-export type SupportTicketCategory = 'credential_issue' | 'payment_issue' | 'account_access' | 'shift_dispute' | 'technical_bug' | 'compliance_query' | 'other';
+export type SupportTicketCategory = 'credential_issue' | 'payment_issue' | 'account_access' | 'shift_dispute' | 'technical_bug' | 'compliance_query' | 'data_request' | 'other';
 
 // Support Ticket Status
 export type SupportTicketStatus = 'open' | 'in_progress' | 'pending_user' | 'resolved' | 'closed';
