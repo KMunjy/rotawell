@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { PublicHeader } from '@/components/layout/public-header';
+import { PublicFooter } from '@/components/layout/public-footer';
 import { ChevronRight } from 'lucide-react';
 
 export default function LegalLayout({
@@ -19,28 +21,30 @@ export default function LegalLayout({
   ];
 
   return (
-    <div className="min-h-screen bg-brand-cream">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold text-gray-900">Legal Information Hub</h1>
+    <div className="min-h-screen bg-cream-100">
+      <PublicHeader />
+
+      <div className="bg-white py-10">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900">Legal Information Hub</h1>
           <p className="mt-2 text-gray-600">UK care sector legislation and compliance guidance</p>
         </div>
-      </header>
+      </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-4">
           {/* Sidebar Navigation */}
           <div className="hidden lg:block">
-            <div className="sticky top-8 space-y-2">
-              <h2 className="text-sm font-semibold text-gray-900 px-4">Categories</h2>
+            <div className="sticky top-24 space-y-2">
+              <h2 className="px-4 text-sm font-semibold text-gray-900">Categories</h2>
               <nav className="space-y-1">
                 {categories.map((category) => (
                   <Link
                     key={category.href}
                     href={category.href}
-                    className="group flex items-center justify-between px-4 py-3 rounded-lg text-sm hover:bg-gray-100 transition-colors"
+                    className="group flex items-center justify-between rounded-lg px-4 py-3 text-sm transition-colors hover:bg-white"
                   >
-                    <span className="text-gray-700 group-hover:text-gray-900 font-medium">
+                    <span className="font-medium text-gray-700 group-hover:text-gray-900">
                       {category.name}
                     </span>
                     <ChevronRight className="h-4 w-4 text-gray-400 group-hover:text-gray-600" />
@@ -51,16 +55,16 @@ export default function LegalLayout({
           </div>
 
           {/* Mobile Category Links */}
-          <div className="lg:hidden mb-8">
+          <div className="mb-8 lg:hidden">
             <div className="grid grid-cols-2 gap-3">
               {categories.map((category) => (
                 <Link
                   key={category.href}
                   href={category.href}
-                  className="p-4 rounded-lg border border-gray-200 hover:border-primary hover:bg-white transition-all"
+                  className="rounded-2xl border border-gray-200/80 bg-white p-4 transition-all hover:border-primary"
                 >
-                  <p className="font-semibold text-gray-900 text-sm">{category.name}</p>
-                  <p className="text-xs text-gray-600 mt-1">{category.description}</p>
+                  <p className="text-sm font-semibold text-gray-900">{category.name}</p>
+                  <p className="mt-1 text-xs text-gray-600">{category.description}</p>
                 </Link>
               ))}
             </div>
@@ -72,6 +76,8 @@ export default function LegalLayout({
           </div>
         </div>
       </div>
+
+      <PublicFooter />
     </div>
   );
 }

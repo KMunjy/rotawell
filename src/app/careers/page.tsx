@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import { OrbitalHeart } from '@/components/brand/orbital-heart';
+import { PublicHeader } from '@/components/layout/public-header';
+import { PublicFooter } from '@/components/layout/public-footer';
 import { Briefcase, Users, Zap, CheckCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/client';
 
 const roleOptions = [
@@ -20,19 +21,19 @@ const roleOptions = [
 
 const values = [
   {
-    icon: <Briefcase className="h-6 w-6" />,
+    icon: Briefcase,
     title: 'Meaningful work',
     desc: 'Everything we build has a direct impact on the quality of care delivered across the UK.',
   },
   {
-    icon: <Users className="h-6 w-6" />,
+    icon: Users,
     title: 'Small, focused team',
-    desc: "We're not trying to grow fast for the sake of it. Every hire matters.",
+    desc: 'We\u2019re not trying to grow fast for the sake of it. Every hire matters.',
   },
   {
-    icon: <Zap className="h-6 w-6" />,
+    icon: Zap,
     title: 'Equity & ownership',
-    desc: 'Early team members share in Rotawell\'s upside as we grow.',
+    desc: 'Early team members share in Rotawell\u2019s upside as we grow.',
   },
 ];
 
@@ -82,7 +83,7 @@ export default function CareersPage() {
         name: form.name.trim(),
         email: form.email.trim(),
         category: 'career_application',
-        subject: `Career enquiry — ${form.role}`,
+        subject: `Career enquiry \u2014 ${form.role}`,
         description,
         priority: 'p3',
         status: 'open',
@@ -103,66 +104,51 @@ export default function CareersPage() {
   };
 
   return (
-    <div className="min-h-screen bg-brand-cream">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-6">
-            <Link href="/" className="flex items-center gap-2">
-              <OrbitalHeart />
-              <span className="text-2xl font-bold text-primary">Rotawell</span>
-            </Link>
-            <div className="flex gap-4">
-              <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900">Sign in</Link>
-              <Link href="/register" className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90">
-                Get started
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-cream-100">
+      <PublicHeader />
 
       <main>
         {/* Hero */}
-        <section className="bg-white py-20">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-sm font-medium text-primary uppercase tracking-wider">Careers at Rotawell</p>
-            <h1 className="mt-4 text-5xl font-bold text-gray-900">
+        <section className="bg-white py-20 sm:py-28">
+          <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+            <p className="text-sm font-semibold uppercase tracking-wide text-primary">Careers at Rotawell</p>
+            <h1 className="mt-4 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
               Help fix UK social care staffing
             </h1>
-            <p className="mt-6 text-xl text-gray-600 leading-relaxed">
-              We're a small team on a big mission — to make care staffing fairer, faster, and better for everyone involved. We're growing, but carefully.
+            <p className="mt-6 text-lg leading-relaxed text-gray-600">
+              We{'\u2019'}re a small team on a big mission\u2014to make care staffing fairer, faster, and better for everyone involved. We{'\u2019'}re growing, but carefully.
             </p>
           </div>
         </section>
 
         {/* No open positions */}
-        <section className="py-16 bg-brand-cream">
+        <section className="py-16">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             <div className="rounded-2xl border-2 border-primary/20 bg-white p-12 text-center">
-              <Briefcase className="h-12 w-12 text-primary/40 mx-auto" />
-              <h2 className="mt-6 text-2xl font-bold text-gray-900">No open positions right now</h2>
-              <p className="mt-4 text-gray-600 max-w-md mx-auto leading-relaxed">
-                We don't have any open roles at the moment, but we're always interested in hearing from exceptional people who care about social care.
+              <Briefcase className="mx-auto h-12 w-12 text-primary/40" />
+              <h2 className="mt-6 text-2xl font-bold tracking-tight text-gray-900">No open positions right now</h2>
+              <p className="mx-auto mt-4 max-w-md leading-relaxed text-gray-600">
+                We don{'\u2019'}t have any open roles at the moment, but we{'\u2019'}re always interested in hearing from exceptional people who care about social care.
               </p>
-              <p className="mt-3 text-gray-600 max-w-md mx-auto">
-                Send us your CV and a note about what you'd like to work on — we keep applications on file and reach out when the right role opens up.
+              <p className="mx-auto mt-3 max-w-md text-gray-600">
+                Send us your CV and a note about what you{'\u2019'}d like to work on\u2014we keep applications on file and reach out when the right role opens up.
               </p>
             </div>
           </div>
         </section>
 
         {/* Values */}
-        <section className="py-16 bg-white">
+        <section className="bg-white py-16">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">Why join Rotawell?</h2>
+            <h2 className="mb-10 text-center text-2xl font-bold tracking-tight text-gray-900">Why join Rotawell?</h2>
             <div className="grid gap-6 sm:grid-cols-3">
               {values.map((v) => (
-                <div key={v.title} className="rounded-xl border border-gray-200 p-6 text-center">
-                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    {v.icon}
+                <div key={v.title} className="rounded-2xl border border-gray-200/80 p-6 text-center">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary">
+                    <v.icon className="h-5 w-5" />
                   </div>
-                  <h3 className="mt-4 font-semibold text-gray-900">{v.title}</h3>
-                  <p className="mt-2 text-sm text-gray-600 leading-relaxed">{v.desc}</p>
+                  <h3 className="mt-4 font-semibold tracking-tight text-gray-900">{v.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-gray-600">{v.desc}</p>
                 </div>
               ))}
             </div>
@@ -170,28 +156,28 @@ export default function CareersPage() {
         </section>
 
         {/* CV form */}
-        <section className="py-16 bg-brand-cream">
+        <section className="py-16">
           <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-10">
-              <h2 className="text-2xl font-bold text-gray-900">Send us your CV</h2>
+            <div className="mb-10 text-center">
+              <h2 className="text-2xl font-bold tracking-tight text-gray-900">Send us your CV</h2>
               <p className="mt-2 text-gray-600">
-                Tell us who you are and what you'd like to work on.
+                Tell us who you are and what you{'\u2019'}d like to work on.
               </p>
             </div>
 
             {submitted ? (
               <div className="rounded-2xl border border-green-200 bg-green-50 p-10 text-center">
-                <CheckCircle className="h-12 w-12 text-green-600 mx-auto" />
+                <CheckCircle className="mx-auto h-12 w-12 text-green-600" />
                 <h2 className="mt-4 text-2xl font-bold text-gray-900">Application received</h2>
                 <p className="mt-3 text-gray-600">
-                  Thanks for reaching out. We'll be in touch if a suitable role opens up.
+                  Thanks for reaching out. We{'\u2019'}ll be in touch if a suitable role opens up.
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="rounded-2xl border border-gray-200 bg-white p-8 space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6 rounded-2xl border border-gray-200/80 bg-white p-8">
                 <div className="grid gap-6 sm:grid-cols-2">
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-1">
+                    <label className="mb-1 block text-sm font-medium text-gray-900">
                       Your name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -200,12 +186,12 @@ export default function CareersPage() {
                       value={form.name}
                       onChange={handleChange}
                       required
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                       placeholder="Jane Smith"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-1">
+                    <label className="mb-1 block text-sm font-medium text-gray-900">
                       Email address <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -214,14 +200,14 @@ export default function CareersPage() {
                       value={form.email}
                       onChange={handleChange}
                       required
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                       placeholder="jane@example.com"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-1">
+                  <label className="mb-1 block text-sm font-medium text-gray-900">
                     Area of interest <span className="text-red-500">*</span>
                   </label>
                   <select
@@ -229,7 +215,7 @@ export default function CareersPage() {
                     value={form.role}
                     onChange={handleChange}
                     required
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                   >
                     <option value="">Select a role type...</option>
                     {roleOptions.map((r) => (
@@ -239,7 +225,7 @@ export default function CareersPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-1">
+                  <label className="mb-1 block text-sm font-medium text-gray-900">
                     LinkedIn or portfolio URL
                   </label>
                   <input
@@ -247,13 +233,13 @@ export default function CareersPage() {
                     name="linkedin"
                     value={form.linkedin}
                     onChange={handleChange}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                     placeholder="https://linkedin.com/in/..."
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-1">
+                  <label className="mb-1 block text-sm font-medium text-gray-900">
                     Tell us about yourself <span className="text-red-500">*</span>
                   </label>
                   <textarea
@@ -262,7 +248,7 @@ export default function CareersPage() {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                     placeholder="What have you worked on? What excites you about Rotawell? What would you want to build?"
                   />
                 </div>
@@ -273,37 +259,16 @@ export default function CareersPage() {
                   </div>
                 )}
 
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="w-full rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-white hover:bg-primary/90 disabled:opacity-60"
-                >
+                <Button type="submit" disabled={submitting} className="w-full">
                   {submitting ? 'Sending...' : 'Send application'}
-                </button>
+                </Button>
               </form>
             )}
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-gray-200 bg-white py-8">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center gap-3 text-center">
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs text-gray-400">
-              <a href="/legal/privacy" className="hover:text-gray-600">Privacy Policy</a>
-              <a href="/legal/gdpr" className="hover:text-gray-600">GDPR & Data</a>
-              <a href="/contact" className="hover:text-gray-600">Contact</a>
-              <a href="/about" className="hover:text-gray-600">About</a>
-            </div>
-            <p className="text-xs text-gray-400">
-              POPIA Information Officer: <a href="mailto:privacy@rotawell.co.uk" className="hover:text-gray-600">privacy@rotawell.co.uk</a>
-            </p>
-            <p className="text-sm text-gray-500">
-              Copyright © {new Date().getFullYear()} Rotawell Ltd. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <PublicFooter />
     </div>
   );
 }

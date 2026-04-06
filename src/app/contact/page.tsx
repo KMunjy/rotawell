@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import { OrbitalHeart } from '@/components/brand/orbital-heart';
+import { PublicHeader } from '@/components/layout/public-header';
+import { PublicFooter } from '@/components/layout/public-footer';
+import { Button } from '@/components/ui/button';
 import { Mail, Phone, MapPin, CheckCircle } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 
@@ -47,7 +48,6 @@ export default function ContactPage() {
 
     try {
       const supabase = createClient();
-
       const ticketRef = `CONTACT-${Date.now()}`;
 
       const { error: dbError } = await supabase.from('nursly_support_tickets').insert({
@@ -76,36 +76,21 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-brand-cream">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-6">
-            <Link href="/" className="flex items-center gap-2">
-              <OrbitalHeart />
-              <span className="text-2xl font-bold text-primary">Rotawell</span>
-            </Link>
-            <div className="flex gap-4">
-              <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900">Sign in</Link>
-              <Link href="/register" className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90">
-                Get started
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-cream-100">
+      <PublicHeader />
 
-      <main className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-3">
           {/* Contact info */}
           <div>
-            <h1 className="text-4xl font-bold text-gray-900">Get in touch</h1>
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900">Get in touch</h1>
             <p className="mt-4 text-lg text-gray-600">
-              Have a question or need help? We're here. Fill in the form and we'll get back to you within one business day.
+              Have a question or need help? We{'\u2019'}re here. Fill in the form and we{'\u2019'}ll get back to you within one business day.
             </p>
 
             <div className="mt-8 space-y-6">
               <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary">
                   <Mail className="h-5 w-5" />
                 </div>
                 <div>
@@ -116,18 +101,18 @@ export default function ContactPage() {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary">
                   <Phone className="h-5 w-5" />
                 </div>
                 <div>
                   <p className="font-medium text-gray-900">Phone</p>
-                  <p className="mt-1 text-sm text-gray-600">Mon–Fri, 9am–6pm</p>
+                  <p className="mt-1 text-sm text-gray-600">Mon\u2013Fri, 9am\u20136pm</p>
                   <p className="text-sm text-gray-600">+44 20 1234 5678</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary-50 text-primary">
                   <MapPin className="h-5 w-5" />
                 </div>
                 <div>
@@ -145,10 +130,10 @@ export default function ContactPage() {
           <div className="lg:col-span-2">
             {submitted ? (
               <div className="rounded-2xl border border-green-200 bg-green-50 p-10 text-center">
-                <CheckCircle className="h-12 w-12 text-green-600 mx-auto" />
+                <CheckCircle className="mx-auto h-12 w-12 text-green-600" />
                 <h2 className="mt-4 text-2xl font-bold text-gray-900">Message sent</h2>
                 <p className="mt-3 text-gray-600">
-                  Thank you for getting in touch. We'll respond within one business day.
+                  Thank you for getting in touch. We{'\u2019'}ll respond within one business day.
                 </p>
                 <button
                   onClick={() => {
@@ -161,10 +146,10 @@ export default function ContactPage() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="rounded-2xl border border-gray-200 bg-white p-8 space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6 rounded-2xl border border-gray-200/80 bg-white p-8">
                 <div className="grid gap-6 sm:grid-cols-2">
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-1">
+                    <label className="mb-1 block text-sm font-medium text-gray-900">
                       Your name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -173,12 +158,12 @@ export default function ContactPage() {
                       value={form.name}
                       onChange={handleChange}
                       required
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                       placeholder="Jane Smith"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-900 mb-1">
+                    <label className="mb-1 block text-sm font-medium text-gray-900">
                       Email address <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -187,19 +172,19 @@ export default function ContactPage() {
                       value={form.email}
                       onChange={handleChange}
                       required
-                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20"
+                      className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                       placeholder="jane@example.com"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-1">Category</label>
+                  <label className="mb-1 block text-sm font-medium text-gray-900">Category</label>
                   <select
                     name="category"
                     value={form.category}
                     onChange={handleChange}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                   >
                     {categories.map((c) => (
                       <option key={c.value} value={c.value}>{c.label}</option>
@@ -208,7 +193,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-1">
+                  <label className="mb-1 block text-sm font-medium text-gray-900">
                     Subject <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -217,13 +202,13 @@ export default function ContactPage() {
                     value={form.subject}
                     onChange={handleChange}
                     required
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                     placeholder="How can we help?"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-900 mb-1">
+                  <label className="mb-1 block text-sm font-medium text-gray-900">
                     Message <span className="text-red-500">*</span>
                   </label>
                   <textarea
@@ -232,7 +217,7 @@ export default function ContactPage() {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-20"
+                    className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                     placeholder="Tell us more about your enquiry..."
                   />
                 </div>
@@ -251,37 +236,16 @@ export default function ContactPage() {
                   </div>
                 )}
 
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="w-full rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-white hover:bg-primary/90 disabled:opacity-60"
-                >
+                <Button type="submit" disabled={submitting} className="w-full">
                   {submitting ? 'Sending...' : 'Send message'}
-                </button>
+                </Button>
               </form>
             )}
           </div>
         </div>
       </main>
 
-      <footer className="border-t border-gray-200 bg-white py-8">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center gap-3 text-center">
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs text-gray-400">
-              <a href="/legal/privacy" className="hover:text-gray-600">Privacy Policy</a>
-              <a href="/legal/gdpr" className="hover:text-gray-600">GDPR & Data</a>
-              <a href="/about" className="hover:text-gray-600">About</a>
-              <a href="/careers" className="hover:text-gray-600">Careers</a>
-            </div>
-            <p className="text-xs text-gray-400">
-              POPIA Information Officer: <a href="mailto:privacy@rotawell.co.uk" className="hover:text-gray-600">privacy@rotawell.co.uk</a>
-            </p>
-            <p className="text-sm text-gray-500">
-              Copyright © {new Date().getFullYear()} Rotawell Ltd. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <PublicFooter />
     </div>
   );
 }

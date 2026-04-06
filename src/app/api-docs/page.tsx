@@ -1,5 +1,7 @@
 import Link from 'next/link';
-import { OrbitalHeart } from '@/components/brand/orbital-heart';
+import { PublicHeader } from '@/components/layout/public-header';
+import { PublicFooter } from '@/components/layout/public-footer';
+import { Button } from '@/components/ui/button';
 import { Lock, Code, Zap, AlertCircle } from 'lucide-react';
 
 const endpoints = [
@@ -25,7 +27,7 @@ const endpoints = [
     group: 'Workers',
     items: [
       { method: 'GET', path: '/v1/workers', desc: 'List workers who have completed shifts for your organisation.' },
-      { method: 'GET', path: '/v1/workers/:id', desc: 'Get a worker\'s public profile, credentials, and shift history with your org.' },
+      { method: 'GET', path: '/v1/workers/:id', desc: 'Get a worker\u2019s public profile, credentials, and shift history with your org.' },
     ],
   },
   {
@@ -63,34 +65,19 @@ const methodColors: Record<string, string> = {
 
 export default function ApiDocsPage() {
   return (
-    <div className="min-h-screen bg-brand-cream">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-6">
-            <Link href="/" className="flex items-center gap-2">
-              <OrbitalHeart />
-              <span className="text-2xl font-bold text-primary">Rotawell</span>
-            </Link>
-            <div className="flex gap-4">
-              <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900">Sign in</Link>
-              <Link href="/register" className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90">
-                Get started
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-cream-100">
+      <PublicHeader />
 
       <main className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
         {/* Hero */}
         <div className="mb-12">
-          <h1 className="text-4xl font-bold text-gray-900">API Documentation</h1>
-          <p className="mt-4 text-lg text-gray-600 leading-relaxed">
-            The Rotawell API allows care providers to integrate shift management directly into your own systems — your rota software, HR platform, or bespoke tooling.
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900">API Documentation</h1>
+          <p className="mt-4 text-lg leading-relaxed text-gray-600">
+            The Rotawell API allows care providers to integrate shift management directly into your own systems\u2014your rota software, HR platform, or bespoke tooling.
           </p>
 
-          <div className="mt-6 rounded-xl border border-yellow-200 bg-yellow-50 p-4 flex items-start gap-3">
-            <AlertCircle className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+          <div className="mt-6 flex items-start gap-3 rounded-2xl border border-yellow-200 bg-yellow-50 p-4">
+            <AlertCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-yellow-600" />
             <p className="text-sm text-yellow-800">
               The Rotawell API is currently in <strong>private beta</strong> and available to selected partners on the Monthly Subscription plan.{' '}
               <Link href="/contact" className="underline hover:no-underline">Contact us</Link> to request API access.
@@ -100,19 +87,19 @@ export default function ApiDocsPage() {
 
         {/* Authentication */}
         <section className="mb-12">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary-50 text-primary">
               <Lock className="h-4 w-4" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">Authentication</h2>
+            <h2 className="text-2xl font-bold tracking-tight text-gray-900">Authentication</h2>
           </div>
 
-          <div className="rounded-xl border border-gray-200 bg-white p-6 space-y-4">
+          <div className="space-y-4 rounded-2xl border border-gray-200/80 bg-white p-6">
             <p className="text-gray-600">
-              All API requests must include your API key in the <code className="rounded bg-gray-100 px-1.5 py-0.5 text-sm font-mono text-gray-800">Authorization</code> header as a Bearer token.
+              All API requests must include your API key in the <code className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-gray-800">Authorization</code> header as a Bearer token.
             </p>
             <div className="rounded-lg bg-gray-900 p-4">
-              <pre className="text-sm text-green-400 font-mono overflow-x-auto">
+              <pre className="overflow-x-auto font-mono text-sm text-green-400">
 {`Authorization: Bearer rw_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`}
               </pre>
             </div>
@@ -121,9 +108,9 @@ export default function ApiDocsPage() {
             </p>
 
             <div className="border-t border-gray-100 pt-4">
-              <p className="font-medium text-gray-900 mb-2">Base URL</p>
+              <p className="mb-2 font-medium text-gray-900">Base URL</p>
               <div className="rounded-lg bg-gray-900 p-4">
-                <pre className="text-sm text-green-400 font-mono">
+                <pre className="font-mono text-sm text-green-400">
 {`https://api.rotawell.co.uk`}
                 </pre>
               </div>
@@ -133,17 +120,17 @@ export default function ApiDocsPage() {
 
         {/* Getting started */}
         <section className="mb-12">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary-50 text-primary">
               <Zap className="h-4 w-4" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">Quick start</h2>
+            <h2 className="text-2xl font-bold tracking-tight text-gray-900">Quick start</h2>
           </div>
 
-          <div className="rounded-xl border border-gray-200 bg-white p-6 space-y-4">
+          <div className="space-y-4 rounded-2xl border border-gray-200/80 bg-white p-6">
             <p className="text-gray-600">List available shifts in your area:</p>
             <div className="rounded-lg bg-gray-900 p-4">
-              <pre className="text-sm text-green-400 font-mono overflow-x-auto">
+              <pre className="overflow-x-auto font-mono text-sm text-green-400">
 {`curl https://api.rotawell.co.uk/v1/shifts \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -G \\
@@ -154,7 +141,7 @@ export default function ApiDocsPage() {
 
             <p className="text-gray-600">Example response:</p>
             <div className="rounded-lg bg-gray-900 p-4">
-              <pre className="text-sm text-blue-300 font-mono overflow-x-auto text-xs">
+              <pre className="overflow-x-auto font-mono text-xs text-blue-300">
 {`{
   "data": [
     {
@@ -182,25 +169,25 @@ export default function ApiDocsPage() {
 
         {/* Endpoints */}
         <section className="mb-12">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary-50 text-primary">
               <Code className="h-4 w-4" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">Endpoints</h2>
+            <h2 className="text-2xl font-bold tracking-tight text-gray-900">Endpoints</h2>
           </div>
 
           <div className="space-y-8">
             {endpoints.map((group) => (
               <div key={group.group}>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">{group.group}</h3>
-                <div className="rounded-xl border border-gray-200 bg-white divide-y divide-gray-100">
+                <h3 className="mb-3 text-lg font-semibold text-gray-900">{group.group}</h3>
+                <div className="divide-y divide-gray-100 rounded-2xl border border-gray-200/80 bg-white">
                   {group.items.map((item) => (
                     <div key={item.path} className="flex items-start gap-4 p-4">
-                      <span className={`rounded px-2 py-0.5 text-xs font-bold font-mono flex-shrink-0 mt-0.5 ${methodColors[item.method]}`}>
+                      <span className={`mt-0.5 flex-shrink-0 rounded px-2 py-0.5 font-mono text-xs font-bold ${methodColors[item.method]}`}>
                         {item.method}
                       </span>
                       <div>
-                        <code className="text-sm font-mono text-gray-800">{item.path}</code>
+                        <code className="font-mono text-sm text-gray-800">{item.path}</code>
                         <p className="mt-1 text-sm text-gray-600">{item.desc}</p>
                       </div>
                     </div>
@@ -213,14 +200,14 @@ export default function ApiDocsPage() {
 
         {/* Webhooks */}
         <section className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Webhook events</h2>
-          <p className="text-gray-600 mb-4">
+          <h2 className="mb-6 text-2xl font-bold tracking-tight text-gray-900">Webhook events</h2>
+          <p className="mb-4 text-gray-600">
             Register a webhook URL to receive POST requests when events occur on your account. Each event payload includes the event type, timestamp, and a data object specific to that event.
           </p>
-          <div className="rounded-xl border border-gray-200 bg-white divide-y divide-gray-100">
+          <div className="divide-y divide-gray-100 rounded-2xl border border-gray-200/80 bg-white">
             {events.map((e) => (
               <div key={e.event} className="flex items-start gap-4 p-4">
-                <code className="text-sm font-mono text-primary flex-shrink-0 min-w-[180px]">{e.event}</code>
+                <code className="min-w-[180px] flex-shrink-0 font-mono text-sm text-primary">{e.event}</code>
                 <p className="text-sm text-gray-600">{e.desc}</p>
               </div>
             ))}
@@ -229,13 +216,13 @@ export default function ApiDocsPage() {
 
         {/* Rate limits */}
         <section className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Rate limits</h2>
-          <div className="rounded-xl border border-gray-200 bg-white p-6 space-y-3">
-            <div className="flex justify-between text-sm border-b border-gray-100 pb-3">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight text-gray-900">Rate limits</h2>
+          <div className="space-y-3 rounded-2xl border border-gray-200/80 bg-white p-6">
+            <div className="flex justify-between border-b border-gray-100 pb-3 text-sm">
               <span className="text-gray-600">Requests per minute</span>
               <span className="font-semibold text-gray-900">60</span>
             </div>
-            <div className="flex justify-between text-sm border-b border-gray-100 pb-3">
+            <div className="flex justify-between border-b border-gray-100 pb-3 text-sm">
               <span className="text-gray-600">Requests per hour</span>
               <span className="font-semibold text-gray-900">1,000</span>
             </div>
@@ -243,48 +230,30 @@ export default function ApiDocsPage() {
               <span className="text-gray-600">Requests per day</span>
               <span className="font-semibold text-gray-900">10,000</span>
             </div>
-            <p className="text-sm text-gray-500 pt-2">
+            <p className="pt-2 text-sm text-gray-500">
               Rate limit headers are returned on every response:{' '}
-              <code className="rounded bg-gray-100 px-1 py-0.5 text-xs font-mono">X-RateLimit-Limit</code>,{' '}
-              <code className="rounded bg-gray-100 px-1 py-0.5 text-xs font-mono">X-RateLimit-Remaining</code>,{' '}
-              <code className="rounded bg-gray-100 px-1 py-0.5 text-xs font-mono">X-RateLimit-Reset</code>.
+              <code className="rounded bg-gray-100 px-1 py-0.5 font-mono text-xs">X-RateLimit-Limit</code>,{' '}
+              <code className="rounded bg-gray-100 px-1 py-0.5 font-mono text-xs">X-RateLimit-Remaining</code>,{' '}
+              <code className="rounded bg-gray-100 px-1 py-0.5 font-mono text-xs">X-RateLimit-Reset</code>.
             </p>
           </div>
         </section>
 
         {/* CTA */}
-        <section className="rounded-2xl bg-primary p-10 text-center">
-          <h2 className="text-2xl font-bold text-white">Ready to integrate?</h2>
-          <p className="mt-3 text-green-100">
+        <section className="rounded-2xl bg-primary-900 p-10 text-center">
+          <h2 className="text-2xl font-bold tracking-tight text-white">Ready to integrate?</h2>
+          <p className="mt-3 text-primary-200">
             API access is available to Monthly Subscription providers. Get in touch to request your API key.
           </p>
-          <Link
-            href="/contact"
-            className="mt-6 inline-block rounded-lg bg-white px-6 py-3 text-sm font-semibold text-primary hover:bg-gray-100"
-          >
-            Request API access
+          <Link href="/contact" className="mt-6 inline-block">
+            <Button size="lg" className="bg-white text-primary-900 hover:bg-cream-200">
+              Request API access
+            </Button>
           </Link>
         </section>
       </main>
 
-      <footer className="border-t border-gray-200 bg-white py-8 mt-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center gap-3 text-center">
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs text-gray-400">
-              <a href="/legal/privacy" className="hover:text-gray-600">Privacy Policy</a>
-              <a href="/legal/gdpr" className="hover:text-gray-600">GDPR & Data</a>
-              <a href="/contact" className="hover:text-gray-600">Contact</a>
-              <a href="/careers" className="hover:text-gray-600">Careers</a>
-            </div>
-            <p className="text-xs text-gray-400">
-              POPIA Information Officer: <a href="mailto:privacy@rotawell.co.uk" className="hover:text-gray-600">privacy@rotawell.co.uk</a>
-            </p>
-            <p className="text-sm text-gray-500">
-              Copyright © {new Date().getFullYear()} Rotawell Ltd. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <PublicFooter />
     </div>
   );
 }

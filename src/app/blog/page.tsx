@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { OrbitalHeart } from '@/components/brand/orbital-heart';
+import { PublicHeader } from '@/components/layout/public-header';
+import { PublicFooter } from '@/components/layout/public-footer';
 import { BookOpen, Calendar, ArrowRight } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 
@@ -50,28 +51,13 @@ export default function BlogPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-brand-cream">
-      <header className="border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-6">
-            <Link href="/" className="flex items-center gap-2">
-              <OrbitalHeart />
-              <span className="text-2xl font-bold text-primary">Rotawell</span>
-            </Link>
-            <div className="flex gap-4">
-              <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900">Sign in</Link>
-              <Link href="/register" className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90">
-                Get started
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-cream-100">
+      <PublicHeader />
 
       <main>
-        <section className="bg-white py-16">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl font-bold text-gray-900">Rotawell Blog</h1>
+        <section className="bg-white py-20">
+          <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">Rotawell Blog</h1>
             <p className="mt-4 text-lg text-gray-600">
               Insights, guidance, and news for care workers and providers across the UK.
             </p>
@@ -81,28 +67,31 @@ export default function BlogPage() {
         <section className="py-12">
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
             {loading ? (
-              <div className="text-center py-16">
+              <div className="py-16 text-center">
                 <p className="text-gray-500">Loading posts...</p>
               </div>
             ) : error ? (
-              <div className="text-center py-16 rounded-xl border border-red-200 bg-red-50">
+              <div className="rounded-2xl border border-red-200 bg-red-50 py-16 text-center">
                 <p className="text-red-600">{error}</p>
               </div>
             ) : posts.length === 0 ? (
-              <div className="text-center py-16 rounded-xl border border-gray-200 bg-white">
-                <BookOpen className="h-12 w-12 text-gray-300 mx-auto" />
+              <div className="rounded-2xl border border-gray-200/80 bg-white py-16 text-center">
+                <BookOpen className="mx-auto h-12 w-12 text-gray-300" />
                 <h2 className="mt-4 text-xl font-semibold text-gray-900">No posts yet</h2>
                 <p className="mt-2 text-gray-500">
-                  We're working on our first posts. Check back soon for articles on care careers, staffing advice, and industry news.
+                  We{'\u2019'}re working on our first posts. Check back soon for articles on care careers, staffing advice, and industry news.
                 </p>
               </div>
             ) : (
-              <div className="space-y-8">
+              <div className="space-y-6">
                 {posts.map((post) => (
-                  <article key={post.id} className="rounded-xl border border-gray-200 bg-white p-8 hover:shadow-md transition-shadow">
-                    <div className="flex items-center gap-3 text-xs text-gray-500 mb-3">
+                  <article
+                    key={post.id}
+                    className="rounded-2xl border border-gray-200/80 bg-white p-8 transition-shadow hover:shadow-md"
+                  >
+                    <div className="mb-3 flex items-center gap-3 text-xs text-gray-500">
                       {post.category && (
-                        <span className="rounded-full bg-primary/10 px-2 py-1 text-primary font-medium">
+                        <span className="rounded-full bg-primary-50 px-2.5 py-1 text-xs font-medium text-primary">
                           {post.category}
                         </span>
                       )}
@@ -118,9 +107,9 @@ export default function BlogPage() {
                       )}
                       {post.author_name && <span>By {post.author_name}</span>}
                     </div>
-                    <h2 className="text-xl font-bold text-gray-900">{post.title}</h2>
+                    <h2 className="text-xl font-bold tracking-tight text-gray-900">{post.title}</h2>
                     {post.summary && (
-                      <p className="mt-2 text-gray-600 leading-relaxed">{post.summary}</p>
+                      <p className="mt-2 leading-relaxed text-gray-600">{post.summary}</p>
                     )}
                     <div className="mt-4">
                       <span className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">
@@ -136,24 +125,7 @@ export default function BlogPage() {
         </section>
       </main>
 
-      <footer className="border-t border-gray-200 bg-white py-8">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center gap-3 text-center">
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs text-gray-400">
-              <a href="/legal/privacy" className="hover:text-gray-600">Privacy Policy</a>
-              <a href="/legal/gdpr" className="hover:text-gray-600">GDPR & Data</a>
-              <a href="/contact" className="hover:text-gray-600">Contact</a>
-              <a href="/careers" className="hover:text-gray-600">Careers</a>
-            </div>
-            <p className="text-xs text-gray-400">
-              POPIA Information Officer: <a href="mailto:privacy@rotawell.co.uk" className="hover:text-gray-600">privacy@rotawell.co.uk</a>
-            </p>
-            <p className="text-sm text-gray-500">
-              Copyright © {new Date().getFullYear()} Rotawell Ltd. All rights reserved.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <PublicFooter />
     </div>
   );
 }
