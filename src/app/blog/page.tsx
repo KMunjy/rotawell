@@ -12,6 +12,7 @@ interface BlogPost {
   title: string;
   slug: string;
   summary: string | null;
+  body: string | null;
   author_name: string | null;
   category: string | null;
   published_at: string | null;
@@ -22,6 +23,7 @@ export default function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -29,7 +31,7 @@ export default function BlogPage() {
         const supabase = createClient();
         const { data, error: dbError } = await supabase
           .from('nursly_blog_posts')
-          .select('id, title, slug, summary, author_name, category, published_at, cover_image_url')
+          .select('id, title, slug, summary, body, author_name, category, published_at, cover_image_url')
           .eq('published', true)
           .order('published_at', { ascending: false });
 
@@ -111,11 +113,19 @@ export default function BlogPage() {
                     {post.summary && (
                       <p className="mt-2 leading-relaxed text-gray-600">{post.summary}</p>
                     )}
+                    {expandedPostId === post.id && post.body && (
+                      <div className="mt-4 pt-4 border-t border-gray-200">
+                        <div className="prose prose-sm max-w-none text-gray-600 leading-relaxed">{post.body}</div>
+                      </div>
+                    )}
                     <div className="mt-4">
-                      <span className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline">
-                        Read more
-                        <ArrowRight className="h-4 w-4" />
-                      </span>
+                      <button
+                        onClick={() => setExpandedPostId(expandedPostId === post.id ? null : post.id)}
+                        className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+                      >
+                        {expandedPostId === post.id ? 'Show less' : 'Read more'}
+                        <ArrowRight className={`h-4 w-4 transition-transform ${expandedPostId === post.id ? 'rotate-90' : ''}`} />
+                      </button>
                     </div>
                   </article>
                 ))}
