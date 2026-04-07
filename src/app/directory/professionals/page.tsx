@@ -2,12 +2,14 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Search, MapPin, Star, Award, CheckCircle, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { listedProfessionals } from '@/lib/public-data';
 
 const PAGE_SIZE = 20;
 
 export default function ProfessionalsDirectory() {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRole, setSelectedRole] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
@@ -188,7 +190,7 @@ export default function ProfessionalsDirectory() {
                   </div>
                   <div>
                     <p className="text-gray-600 text-xs font-medium mb-1">Rate</p>
-                    <p className="text-gray-900 font-medium">£{prof.hourlyRate.min}-£{prof.hourlyRate.max}/hr</p>
+                    <p className="text-gray-900 font-medium">Â£{prof.hourlyRate.min}-Â£{prof.hourlyRate.max}/hr</p>
                   </div>
                   <div>
                     <p className="text-gray-600 text-xs font-medium mb-1">Availability</p>
@@ -197,7 +199,7 @@ export default function ProfessionalsDirectory() {
                   <div>
                     <p className="text-gray-600 text-xs font-medium mb-1">Verifications</p>
                     <p className="text-xs text-green-600">
-                      {prof.nmcVerified ? '✓ NMC' : ''} {prof.dbsVerified ? '✓ DBS' : ''}
+                      {prof.nmcVerified ? 'â NMC' : ''} {prof.dbsVerified ? 'â DBS' : ''}
                     </p>
                   </div>
                 </div>
@@ -213,7 +215,10 @@ export default function ProfessionalsDirectory() {
                   </div>
                 </div>
 
-                <button className="w-full px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors">
+                <button
+                  onClick={() => router.push('/register?role=provider&ref=directory')}
+                  className="w-full px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                >
                   View Profile & Book
                 </button>
               </div>
