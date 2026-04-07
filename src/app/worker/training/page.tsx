@@ -9,20 +9,30 @@ import { useToast } from '@/components/ui/toast';
 import type { NurslyTrainingProgress } from '@/lib/types';
 
 const defaultModules = [
+  // Mandatory Training
   {
-    module_id: 'mod-health-safety',
-    module_name: 'Health & Safety in Care',
-    description: 'Learn essential health and safety procedures in care settings',
+    module_id: 'mod-fire-safety',
+    module_name: 'Fire Safety',
+    description: 'Learn fire prevention, emergency procedures, evacuation routes, and how to use fire safety equipment in care settings. Covers risk assessment and emergency protocols.',
+    duration_minutes: 90,
+    mandatory: true,
+    status: 'not_started' as const,
+    progress: 0,
+  },
+  {
+    module_id: 'mod-manual-handling',
+    module_name: 'Manual Handling',
+    description: 'Safe techniques for moving and handling service users. Covers lifting, positioning, equipment use, and injury prevention to protect both you and those in your care.',
     duration_minutes: 120,
     mandatory: true,
     status: 'not_started' as const,
     progress: 0,
   },
   {
-    module_id: 'mod-data-protection',
-    module_name: 'Data Protection & Privacy',
-    description: 'Understand GDPR and data protection responsibilities',
-    duration_minutes: 90,
+    module_id: 'mod-infection-control',
+    module_name: 'Infection Prevention & Control',
+    description: 'Essential hygiene practices, PPE use, and procedures to prevent the spread of infections. Includes pandemic response protocols and communicable disease management.',
+    duration_minutes: 100,
     mandatory: true,
     status: 'not_started' as const,
     progress: 0,
@@ -30,25 +40,53 @@ const defaultModules = [
   {
     module_id: 'mod-safeguarding',
     module_name: 'Safeguarding Adults',
-    description: 'Identify and respond to safeguarding concerns',
+    description: 'Recognize and respond to abuse, neglect, and exploitation. Understand your duty to report concerns and support vulnerable adults under UK safeguarding legislation.',
     duration_minutes: 150,
     mandatory: true,
     status: 'not_started' as const,
     progress: 0,
   },
   {
-    module_id: 'mod-dementia-care',
-    module_name: 'Dementia Care Excellence',
-    description: 'Advanced techniques for supporting people with dementia',
+    module_id: 'mod-health-safety',
+    module_name: 'Health & Safety in Care',
+    description: 'Comprehensive overview of health and safety legislation, risk management, incident reporting, and creating a safe working environment in care settings.',
+    duration_minutes: 120,
+    mandatory: true,
+    status: 'not_started' as const,
+    progress: 0,
+  },
+  // Role-Specific Training
+  {
+    module_id: 'mod-medication-admin',
+    module_name: 'Medication Administration',
+    description: 'Safe handling and administration of medicines. Covers the five rights of medication, documentation, storage, and reporting adverse reactions in compliance with NMC standards.',
     duration_minutes: 180,
     mandatory: false,
     status: 'not_started' as const,
     progress: 0,
   },
   {
-    module_id: 'mod-palliative-care',
-    module_name: 'Palliative Care Basics',
-    description: 'End-of-life care and emotional support',
+    module_id: 'mod-dementia-care',
+    module_name: 'Dementia Care',
+    description: 'Evidence-based approaches to supporting people with dementia. Covers communication strategies, behavioral management, person-centered care, and managing challenging behaviors.',
+    duration_minutes: 150,
+    mandatory: false,
+    status: 'not_started' as const,
+    progress: 0,
+  },
+  {
+    module_id: 'mod-end-of-life',
+    module_name: 'End of Life Care',
+    description: 'Compassionate end-of-life care practices, symptom management, supporting families through bereavement, and maintaining dignity in the final stages of life.',
+    duration_minutes: 140,
+    mandatory: false,
+    status: 'not_started' as const,
+    progress: 0,
+  },
+  {
+    module_id: 'mod-mental-health',
+    module_name: 'Mental Health Awareness',
+    description: 'Understanding mental health conditions, recognizing signs of distress, mental health first aid principles, and supporting service users with mental health needs.',
     duration_minutes: 120,
     mandatory: false,
     status: 'not_started' as const,
@@ -147,19 +185,24 @@ export default function TrainingPage() {
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-3 flex-1">
             <div className="mt-1">
-              <BookOpen className="h-5 w-5 text-gray-400" />
+              <BookOpen className="h-5 w-5 text-primary" />
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-gray-900">{mod.module_name}</h3>
+              <div className="flex items-center gap-2">
+                <h3 className="font-semibold text-gray-900">{mod.module_name}</h3>
+                {mod.mandatory && (
+                  <Badge variant="default" className="bg-amber-100 text-amber-800">Mandatory</Badge>
+                )}
+              </div>
               <p className="mt-1 text-sm text-gray-600">{mod.description}</p>
               <p className="mt-2 text-xs text-gray-500">
                 <Clock className="h-3 w-3 inline mr-1" />
-                {Math.round(mod.duration_minutes / 60)} hours
+                Approximately {Math.round(mod.duration_minutes / 60)} hour{Math.round(mod.duration_minutes / 60) > 1 ? 's' : ''}
               </p>
             </div>
           </div>
           <div className="flex-shrink-0">
-            <Badge variant="secondary">Content coming soon</Badge>
+            <Badge variant="secondary">Not started</Badge>
           </div>
         </div>
       </CardContent>
@@ -173,13 +216,6 @@ export default function TrainingPage() {
         <p className="mt-2 text-gray-600">Complete mandatory training and develop your skills</p>
       </div>
 
-      <Card className="border-blue-200 bg-blue-50">
-        <CardContent className="pt-6">
-          <p className="text-sm font-medium text-blue-900">
-            Training module content is coming soon. The modules below will become interactive once the content is ready.
-          </p>
-        </CardContent>
-      </Card>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <Card>
