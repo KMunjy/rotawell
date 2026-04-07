@@ -55,16 +55,34 @@ export default function PrivacySettingsPage() {
     }
   }, []);
 
-  const handleSaveCookiePrefs = () => {
+  const handleSaveCookiePrefs = async () => {
     try {
+      // Save to localStorage
       localStorage.setItem(
         CONSENT_KEY,
         JSON.stringify({ ...cookiePrefs, essential: true, decided: true })
       );
+
+      // Save to Supabase
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        await supabase.from('nursly_notification_preferences').upsert({
+          user_id: user.id,
+          category: 'privacy',
+          data_processing_consent: cookiePrefs.functional,
+          marketing_consent: cookiePrefs.marketing,
+          updated_at: new Date().toISOString(),
+        });
+      }
+
       setCookieSaved(true);
       setTimeout(() => setCookieSaved(false), 2000);
-    } catch {
-      // ignore
+    } catch (err) {
+      console.error('Error saving preferences:', err);
     }
   };
 
@@ -383,12 +401,12 @@ export default function PrivacySettingsPage() {
           </li>
           <li>
             <a href="https://ico.org.uk" target="_blank" rel="noopener noreferrer" className="text-primary underline hover:no-underline">
-              Information Commissioner&apos;s Office (UK) — ico.org.uk
+              Information Commissioner&apos;s Office (UK) â ico.org.uk
             </a>
           </li>
           <li>
             <a href="https://inforegulator.org.za" target="_blank" rel="noopener noreferrer" className="text-primary underline hover:no-underline">
-              Information Regulator (South Africa) — inforegulator.org.za
+              Information Regulator (South Africa) â inforegulator.org.za
             </a>
           </li>
         </ul>
